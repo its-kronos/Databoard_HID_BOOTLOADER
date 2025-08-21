@@ -136,10 +136,11 @@ static void set_sysclock_to_72_mhz(void)
 
 	/* SYSCLK = PCLK2 = HCLK */
 	/* PCLK1 = HCLK / 2 */
+	/*divide HSE by two before feeding to PLLCLK*/
 	/* PLLCLK = HSE * 9 = 72 MHz */
 	SET_BIT(RCC->CFGR,
 		RCC_CFGR_HPRE_DIV1 | RCC_CFGR_PPRE2_DIV1 | RCC_CFGR_PPRE1_DIV2 |
-		RCC_CFGR_PLLSRC_HSE | RCC_CFGR_PLLMULL9);
+		RCC_CFGR_PLLSRC_HSE | RCC_CFGR_PLLXTPRE_HSE_DIV2 | RCC_CFGR_PLLMULL9);
 
 	/* Enable PLL */
 	SET_BIT(RCC->CR, RCC_CR_PLLON);
